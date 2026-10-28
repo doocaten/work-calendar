@@ -1,21 +1,28 @@
 <!doctype html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1677f2"><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="엄마 근무표"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg">
-<title>엄마 근무표</title>
+<meta name="apple-mobile-web-app-title" content="근무달력"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg">
+<title>근무달력</title>
 <style>
-:root{--b:#1677f2;--ink:#202733;--muted:#586474;--line:#8994a2;--bg:#f2f4f7}
+:root{--b:#1677f2;--ink:#202733;--muted:#586474;--line:#d7dce4;--bg:#f2f4f7}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-weight:700;font-size:18px;line-height:1.4}
 button,input,textarea,select{font:inherit}button{cursor:pointer;touch-action:manipulation}.app{max-width:760px;margin:auto;padding:12px 10px calc(24px + env(safe-area-inset-bottom))}
 header,.monthrow{display:flex;align-items:center;justify-content:space-between;gap:8px}header{margin:4px 2px 14px}h1{font-size:1.7rem;margin:0;letter-spacing:-.04em}.sub,.help{font-size:.83rem;color:var(--muted);font-weight:500}.sub{margin-top:3px}
 .panel{background:#fff;border:1px solid #d7dce4;border-radius:16px;padding:13px;margin-bottom:12px;box-shadow:0 3px 12px #182a440d}
 button{border-radius:12px;font-weight:900}.today,.primary{background:var(--b);color:#fff;border:0;padding:10px 14px;min-height:48px}.nav,.secondary{background:#fff;border:2px solid #cbd2dc;color:var(--ink);min-height:48px;padding:8px 13px}.nav{width:48px;font-size:1.4rem}.month{font-size:1.4rem;font-weight:900}
-.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:2px solid #657181;border-left:2px solid #657181;border-radius:7px;overflow:hidden;margin-top:10px}
-.weekday{text-align:center;background:#e9edf2;padding:7px 0;border-right:2px solid #657181;border-bottom:2px solid #657181;font-size:.85rem}.weekday:first-child{color:#b32230}.weekday:last-child{color:#135fc1}
-.day{position:relative;min-width:0;min-height:76px;padding:4px 2px;background:white;border:0;border-right:2px solid #aab3bf;border-bottom:2px solid #aab3bf;border-radius:0;display:flex;align-items:center;flex-direction:column;gap:3px;color:var(--ink)}
+.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid #d7dce4;border-left:1px solid #d7dce4;border-radius:7px;overflow:hidden;margin-top:10px}
+.weekday{text-align:center;background:#e9edf2;padding:7px 0;border-right:1px solid #d7dce4;border-bottom:1px solid #d7dce4;font-size:.85rem}.weekday:first-child{color:#b32230}.weekday:last-child{color:#135fc1}
+.day{position:relative;min-width:0;min-height:76px;padding:4px 2px;background:white;border:0;border-right:1px solid #d7dce4;border-bottom:1px solid #d7dce4;border-radius:0;display:flex;align-items:center;flex-direction:column;gap:3px;color:var(--ink)}
 .day.out{background:#f5f6f8;color:#9da5af}.day.sel{background:#e4efff;box-shadow:inset 0 0 0 4px var(--b)}.day.today .num{background:var(--b);color:white;border-radius:50%;min-width:29px;min-height:29px;display:inline-flex;align-items:center;justify-content:center}
-.num{font-size:1rem;line-height:1.8}.tag{font-size:.75rem;border-radius:5px;width:100%;max-width:62px;padding:2px 0;white-space:nowrap}.주간{background:#dbeaff;color:#084da8}.야간{background:#e9e1ff;color:#51339a}.휴무{background:#e3f5e8;color:#176d38}.비번{background:#fbe7e8;color:#9b2731}.dot{position:absolute;top:5px;right:4px;width:8px;height:8px;background:#ef8b22;border-radius:50%;border:1px solid #9e4d00}
-.legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:10px;font-size:.8rem}.legend span{display:flex;align-items:center;gap:5px}.legend i{width:12px;height:12px;border-radius:3px}
+.num{font-size:1rem;line-height:1.8}
+.tag{font-size:.8rem;border-radius:50%;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;color:#ffffff;font-weight:bold;margin-top:2px}
+.주간{background:#D93838}
+.야간{background:#1E3A8A}
+.휴무{background:#2E7D32}
+.비번{background:#C2185B}
+.dot{position:absolute;top:4px;right:4px;color:#1677f2;font-size:13px;font-weight:900;font-style:normal}
+.dot::after{content:'✓'}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:10px;font-size:.8rem}.legend span{display:flex;align-items:center;gap:5px}.legend i{width:14px;height:14px;border-radius:50%}
 h2{font-size:1.1rem;margin:0 0 10px}.selected{font-size:1.08rem;margin-bottom:10px}.shifts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.shiftbtn{min-height:62px;border:2px solid transparent;font-size:1rem}.shiftbtn[aria-pressed=true]{border-color:#0759c7;box-shadow:inset 0 0 0 2px white}
 .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:9px}.help{margin:8px 0 0}
 label{display:block;margin:10px 0 6px}textarea,select{width:100%;min-height:50px;border:2px solid #cbd2dc;border-radius:12px;padding:10px;background:#fff;color:var(--ink)}textarea{min-height:85px;resize:vertical}
@@ -23,11 +30,11 @@ label{display:block;margin:10px 0 6px}textarea,select{width:100%;min-height:50px
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chip{background:#f0f2f5;border:1px solid #cbd2dc;border-radius:9px;padding:5px 8px;font-size:.85rem}.chip button{border:0;background:none;color:#a22;font-size:1rem;padding:0 2px}
 .cycleadd{display:grid;grid-template-columns:1fr auto;gap:8px}.foot{text-align:center;color:var(--muted);font-size:.8rem;padding:5px 8px}
 dialog{border:0;border-radius:16px;width:min(92vw,480px);padding:18px;box-shadow:0 10px 40px #0004}dialog::backdrop{background:#121d2c99}dialog h2{font-size:1.25rem}.dlgactions{display:flex;gap:8px;margin-top:14px}.dlgactions button{flex:1}
-@media(max-width:380px){body{font-size:16px}.app{padding-left:6px;padding-right:6px}.panel{padding:9px}.day{min-height:65px}.tag{font-size:.69rem}.shiftbtn{font-size:.88rem;min-height:56px}}
+@media(max-width:380px){body{font-size:16px}.app{padding-left:6px;padding-right:6px}.panel{padding:9px}.day{min-height:65px}.shiftbtn{font-size:.88rem;min-height:56px}}
 </style></head><body><main class="app">
-<header><div><h1>엄마 근무표</h1><div class="sub">큰 글씨로 쉽게 보는 근무 달력</div></div><button class="today" id="today">오늘</button></header>
+<header><div><h1>근무달력</h1><div class="sub">큰 글씨로 쉽게 보는 근무 달력</div></div><button class="today" id="today">오늘</button></header>
 <section class="panel"><div class="monthrow"><button class="nav" id="prev" aria-label="이전 달">‹</button><div class="month" id="month"></div><button class="nav" id="next" aria-label="다음 달">›</button></div><div class="calendar" id="calendar"></div>
-<div class="legend"><span><i style="background:#dbeaff"></i>주간</span><span><i style="background:#e9e1ff"></i>야간</span><span><i style="background:#e3f5e8"></i>휴무</span><span><i style="background:#fbe7e8"></i>비번</span><span>🟠 메모 있음</span></div></section>
+<div class="legend"><span><i style="background:#D93838"></i>주간</span><span><i style="background:#1E3A8A"></i>야간</span><span><i style="background:#2E7D32"></i>휴무</span><span><i style="background:#C2185B"></i>비번</span><span>✔️ 메모 있음</span></div></section>
 <section class="panel"><h2>근무 입력</h2><div class="selected" id="selected"></div><div class="shifts">
 <button class="shiftbtn 주간" data-shift="주간">주간</button><button class="shiftbtn 야간" data-shift="야간">야간</button><button class="shiftbtn 휴무" data-shift="휴무">휴무</button><button class="shiftbtn 비번" data-shift="비번">비번</button></div>
 <div class="actions"><button class="secondary" id="clear">근무 지우기</button><button class="secondary" id="saveMemo">메모 저장</button></div>
@@ -36,53 +43,4 @@ dialog{border:0;border-radius:16px;width:min(92vw,480px);padding:18px;box-shadow
 <div id="chips" class="chips"></div><div class="cycleadd"><select id="addshift" aria-label="추가할 근무"><option>주간</option><option>야간</option><option>휴무</option><option>비번</option></select><button class="secondary" id="add">순서 추가</button></div>
 <div class="actions"><button class="secondary" id="reset">순서 초기화</button><button class="primary" id="fill">선택일부터 자동 채우기</button></div><p class="help">자동 채우기는 이미 입력한 근무를 덮어쓸 수 있으므로 실행 전 확인해요.</p></section>
 <section class="panel"><h2 id="summaryTitle">월별 근무 합계</h2><div class="summary"><div class="countbox"><div class="count" id="c0">0</div><small>주간</small></div><div class="countbox"><div class="count" id="c1">0</div><small>야간</small></div><div class="countbox"><div class="count" id="c2">0</div><small>휴무</small></div><div class="countbox"><div class="count" id="c3">0</div><small>비번</small></div></div>
-<div class="actions"><button class="primary" id="image">근무표 이미지 저장</button><button class="secondary" id="backup">백업 파일 저장</button></div><div class="actions"><button class="secondary" id="restore">백업 파일 복원</button><button class="secondary" id="clearMonth">이번 달 근무 지우기</button></div><input hidden type="file" id="file" accept=".json,application/json"><p class="help">이미지는 사진첩이나 다운로드에 저장해 가족에게 보낼 수 있어요. 백업은 기록을 옮기거나 복구할 때 사용해요.</p></section>
-<div class="foot">광고 없음 · 회원가입 없음 · 기록은 이 기기에 저장됩니다.</div></main>
-<dialog id="dlg"><h2 id="dtitle">확인</h2><p id="dtext"></p><div class="dlgactions"><button class="secondary" id="dcancel">취소</button><button class="primary" id="dok">확인</button></div></dialog>
-<script>
-(()=>{'use strict';
-const KEY='mom-work-calendar-data-v1', DEFAULT=['주간','주간','야간','야간','휴무','비번'], $=id=>document.getElementById(id);
-const key=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-const date=k=>{let [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d)};
-let now=new Date(), view=new Date(now.getFullYear(),now.getMonth(),1), selected=key(now), cycle=[...DEFAULT], data=load(), resolveDialog=null;
-function load(){try{let d=JSON.parse(localStorage.getItem(KEY)||'{}');return{shifts:d.shifts||{},memos:d.memos||{}}}catch{return{shifts:{},memos:{}}}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch{alert('저장 공간이 부족할 수 있어요. 백업 파일을 저장해 주세요.')}}
-function ask(title,text,yes='확인',no='취소'){ $('dtitle').textContent=title;$('dtext').textContent=text;$('dok').textContent=yes;$('dcancel').textContent=no;$('dlg').showModal();return new Promise(r=>resolveDialog=r)}
-function close(v){$('dlg').close();if(resolveDialog)resolveDialog(v);resolveDialog=null}
-$('dok').onclick=()=>close(true);$('dcancel').onclick=()=>close(false);$('dlg').addEventListener('cancel',e=>{e.preventDefault();close(false)});
-function render(){let cal=$('calendar');cal.innerHTML='';['일','월','화','수','목','금','토'].forEach((w,i)=>{let el=document.createElement('div');el.className='weekday';el.textContent=w;cal.append(el)});
-let y=view.getFullYear(),m=view.getMonth(), first=new Date(y,m,1), offset=first.getDay(), days=new Date(y,m+1,0).getDate(), prevdays=new Date(y,m,0).getDate(), total=Math.ceil((offset+days)/7)*7, today=key(new Date());
-$('month').textContent=`${y}년 ${m+1}월`;$('summaryTitle').textContent=`${m+1}월 근무 합계`;
-for(let i=0;i<total;i++){let d,out;if(i<offset){d=new Date(y,m-1,prevdays-offset+i+1);out=true}else if(i>=offset+days){d=new Date(y,m+1,i-offset-days+1);out=true}else{d=new Date(y,m,i-offset+1);out=false}
-let k=key(d),b=document.createElement('button');b.type='button';b.className='day'+(out?' out':'')+(k===selected?' sel':'')+(k===today?' today':'');b.setAttribute('aria-label',`${k}${data.shifts[k]?' '+data.shifts[k]:''}${data.memos[k]?' 메모 있음':''}`);
-let n=document.createElement('span');n.className='num';n.textContent=d.getDate();b.append(n);
-if(data.shifts[k]){let t=document.createElement('span');t.className='tag '+data.shifts[k];t.textContent=data.shifts[k];b.append(t)}
-if(data.memos[k]?.trim()){let dot=document.createElement('i');dot.className='dot';b.append(dot)}
-b.onclick=()=>{selected=k;if(out)view=new Date(d.getFullYear(),d.getMonth(),1);render()};cal.append(b)}
-let d=date(selected), wd=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];$('selected').textContent=`${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${wd[d.getDay()]})`;
-$('memo').value=data.memos[selected]||'';document.querySelectorAll('[data-shift]').forEach(b=>b.setAttribute('aria-pressed',String(data.shifts[selected]===b.dataset.shift)));
-let counts=['주간','야간','휴무','비번'].map(s=>Object.entries(data.shifts).filter(([k,v])=>{let d=date(k);return v===s&&d.getFullYear()===y&&d.getMonth()===m}).length);
-counts.forEach((c,i)=>$('c'+i).textContent=c);renderCycle()}
-function renderCycle(){let box=$('chips');box.innerHTML='';if(!cycle.length){box.textContent='반복 순서를 추가해 주세요.';return}cycle.forEach((s,i)=>{let span=document.createElement('span');span.className='chip';span.textContent=`${i+1}. ${s} `;let b=document.createElement('button');b.textContent='×';b.setAttribute('aria-label',s+' 삭제');b.onclick=()=>{cycle.splice(i,1);renderCycle()};span.append(b);box.append(span)})}
-document.querySelectorAll('[data-shift]').forEach(b=>b.onclick=()=>{data.shifts[selected]=b.dataset.shift;save();render()});
-$('clear').onclick=async()=>{if(data.shifts[selected]&&await ask('근무 지우기','선택한 날짜의 근무 표시를 지울까요?')){delete data.shifts[selected];save();render()}};
-$('saveMemo').onclick=async()=>{let v=$('memo').value.trim();if(v)data.memos[selected]=v;else delete data.memos[selected];save();render();await ask('메모 저장',v?'메모를 저장했어요.':'메모를 비웠어요.')};
-$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);function move(n){let old=date(selected),y=view.getFullYear(),m=view.getMonth()+n;view=new Date(y,m,1);selected=key(new Date(view.getFullYear(),view.getMonth(),Math.min(old.getDate(),new Date(view.getFullYear(),view.getMonth()+1,0).getDate())));render()}
-$('today').onclick=()=>{let d=new Date();view=new Date(d.getFullYear(),d.getMonth(),1);selected=key(d);render()};
-$('add').onclick=()=>{cycle.push($('addshift').value);renderCycle()};
-$('reset').onclick=async()=>{if(await ask('순서 초기화','기본 반복 순서로 바꿀까요?')){cycle=[...DEFAULT];renderCycle()}};
-$('fill').onclick=async()=>{if(!cycle.length){await ask('순서 없음','반복할 근무를 먼저 추가해 주세요.');return}let d=date(selected),end=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();if(!await ask('자동 채우기',`${d.getMonth()+1}월 ${d.getDate()}일부터 ${end}일까지 반복 입력할까요? 이미 입력한 근무는 덮어써져요.`,'자동 채우기'))return;for(let n=d.getDate();n<=end;n++)data.shifts[key(new Date(d.getFullYear(),d.getMonth(),n))]=cycle[(n-d.getDate())%cycle.length];save();render();await ask('완료','반복 근무를 입력했어요.')};
-function download(blob,name){let u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000)}
-$('backup').onclick=()=>{download(new Blob([JSON.stringify({app:'엄마 근무표',version:1,data},null,2)],{type:'application/json'}),`엄마근무표_백업_${key(new Date())}.json`);ask('백업 파일 저장','백업 파일을 만들었어요. 다운로드 또는 공유 메뉴를 확인해 안전한 곳에 보관해 주세요.')};
-$('restore').onclick=()=>$('file').click();
-$('file').onchange=async e=>{let f=e.target.files?.[0];if(!f)return;try{let p=JSON.parse(await f.text()),d=p.data||p;if(!d.shifts||!d.memos)throw Error();if(await ask('백업 복원','현재 기록을 백업 파일 내용으로 바꿀까요? 기존 기록은 덮어써져요.','복원하기')){data={shifts:d.shifts,memos:d.memos};save();render();await ask('복원 완료','백업 파일을 불러왔어요.')}}catch{await ask('복원 실패','올바른 엄마 근무표 백업 JSON 파일인지 확인해 주세요.')}finally{e.target.value=''}};
-$('clearMonth').onclick=async()=>{if(!await ask('이번 달 근무 지우기','이번 달 근무를 모두 지울까요? 메모는 유지돼요.','모두 지우기'))return;let y=view.getFullYear(),m=view.getMonth();Object.keys(data.shifts).forEach(k=>{let d=date(k);if(d.getFullYear()===y&&d.getMonth()===m)delete data.shifts[k]});save();render()};
-async function exportImage(){let y=view.getFullYear(),m=view.getMonth(),offset=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),rows=Math.ceil((offset+days)/7),cw=160,ch=108,left=28,top=130,w=left*2+cw*7,h=top+48+rows*ch+145,c=document.createElement('canvas');c.width=w*2;c.height=h*2;let x=c.getContext('2d');x.scale(2,2);x.fillStyle='#fff';x.fillRect(0,0,w,h);x.fillStyle='#202733';x.font='bold 34px sans-serif';x.fillText(`${y}년 ${m+1}월 근무표`,left,48);x.fillStyle='#1677f2';x.fillRect(left,65,130,6);x.fillStyle='#586474';x.font='bold 17px sans-serif';x.fillText('주간 · 야간 · 휴무 · 비번',left,100);let weeks=['일','월','화','수','목','금','토'];weeks.forEach((v,i)=>{let xx=left+i*cw;x.fillStyle='#e9edf2';x.fillRect(xx,top,cw,40);x.fillStyle=i===0?'#b32230':i===6?'#135fc1':'#202733';x.font='bold 20px sans-serif';x.textAlign='center';x.fillText(v,xx+cw/2,top+27)});
-let colors={'주간':['#dbeaff','#084da8'],'야간':['#e9e1ff','#51339a'],'휴무':['#e3f5e8','#176d38'],'비번':['#fbe7e8','#9b2731']};for(let n=1;n<=days;n++){let idx=offset+n-1,r=Math.floor(idx/7),col=idx%7,xx=left+col*cw,yy=top+40+r*ch,k=key(new Date(y,m,n));x.fillStyle='#fff';x.fillRect(xx,yy,cw,ch);x.strokeStyle='#8994a2';x.lineWidth=1.5;x.strokeRect(xx,yy,cw,ch);x.textAlign='left';x.fillStyle='#202733';x.font='bold 22px sans-serif';x.fillText(String(n),xx+9,yy+27);let s=data.shifts[k];if(s){x.fillStyle=colors[s][0];x.fillRect(xx+8,yy+37,cw-16,31);x.fillStyle=colors[s][1];x.font='bold 19px sans-serif';x.textAlign='center';x.fillText(s,xx+cw/2,yy+59)}if(data.memos[k]?.trim()){x.fillStyle='#ef8b22';x.beginPath();x.arc(xx+cw-13,yy+13,5,0,7);x.fill();x.fillStyle='#586474';x.font='14px sans-serif';x.textAlign='left';let memo=data.memos[k].replace(/\s+/g,' ');x.fillText(memo.length>9?memo.slice(0,9)+'…':memo,xx+8,yy+91)}}
-let counts=['주간','야간','휴무','비번'].map(s=>Object.entries(data.shifts).filter(([k,v])=>{let d=date(k);return v===s&&d.getFullYear()===y&&d.getMonth()===m}).length),sy=top+40+rows*ch+30;x.textAlign='left';x.fillStyle='#202733';x.font='bold 20px sans-serif';x.fillText('이번 달 합계',left,sy);x.font='bold 18px sans-serif';['#084da8','#51339a','#176d38','#9b2731'].forEach((col,i)=>{x.fillStyle=col;x.fillText(`${['주간','야간','휴무','비번'][i]} ${counts[i]}일`,left+i*170,sy+32)});x.fillStyle='#586474';x.font='14px sans-serif';x.fillText('주황색 점이 있는 날짜의 메모는 앱에서 확인하세요.',left,sy+62);
-let blob=await new Promise(r=>c.toBlob(r,'image/png'));if(!blob)throw Error('png');let name=`근무표_${y}-${String(m+1).padStart(2,'0')}.png`;if(navigator.share&&navigator.canShare&&typeof File!=='undefined'){try{let file=new File([blob],name,{type:'image/png'});if(navigator.canShare({files:[file]})){await navigator.share({files:[file],title:`${y}년 ${m+1}월 근무표`});return}}catch(e){if(e.name==='AbortError')return}}download(blob,name);await ask('이미지 만들기 완료','이미지를 저장했어요. 다운로드 항목이나 사진첩을 확인해 주세요. 아이폰에서는 브라우저의 공유/다운로드 메뉴를 확인할 수 있어요.')}
-$('image').onclick=()=>exportImage().catch(()=>ask('이미지 저장 안내','이미지 저장이 되지 않으면 페이지를 다시 열고 시도해 주세요.'));
-if('serviceWorker'in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-render();
-})();
-</script></body></html>
+<div class="actions"><button class="primary" id="image">근무표 이미지 저장</button><button class="secondary" id="backup">백업 파일 저장</button></div><div class="actions"><button class="secondary" id="restore">백업 파일 복원</button><button class="secondary" id="clearMonth">이번 달 근무
